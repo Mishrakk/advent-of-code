@@ -8,7 +8,9 @@
   "scripts": {
     "day": "node src/bin/day.js",
     "generate": "node src/bin/generate_day.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update-submodule": "git submodule update --remote --rebase",
+    "push-submodule": "git push --recurse-submodules=check"
   },
   "keywords": [],
   "author": "",
