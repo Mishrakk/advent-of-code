@@ -1,0 +1,4 @@
+[submodule "inputs"]
+	path = inputs
+	url = git@github.com:Mishrakk/aoc-inputs.git
+	branch = main
