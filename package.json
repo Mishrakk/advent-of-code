@@ -1,0 +1,17 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "day": "./src/bin/day.js"
+  },
+  "scripts": {
+    "day": "node src/bin/day.js",
+    "generate": "node src/bin/generate_day.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
