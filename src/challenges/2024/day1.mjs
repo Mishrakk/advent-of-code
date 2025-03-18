@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import assert from "assert";
-import { getRlInterface } from "../shared/fileReader.mjs";
+import { getRlInterface } from "../../shared/fileReader.mjs";
 
 const DAY = 1;
 

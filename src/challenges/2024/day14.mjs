@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { getRlInterface } from "../shared/fileReader.mjs";
-import { printGrid } from "../shared/grid.mjs";
+import { getRlInterface } from "../../shared/fileReader.mjs";
+import { printGrid } from "../../shared/grid.mjs";
 import assert from "assert";
 
 const DAY = 14;

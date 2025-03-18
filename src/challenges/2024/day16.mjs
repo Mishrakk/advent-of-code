@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { readFileTo2DArray } from "../shared/fileReader.mjs";
-import { getPosition, printGrid } from "../shared/grid.mjs";
+import { readFileTo2DArray } from "../../shared/fileReader.mjs";
+import { getPosition, printGrid } from "../../shared/grid.mjs";
 import assert from "assert";
 
 const DAY = 16;

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { getRlInterface, readFile } from "../shared/fileReader.mjs";
+import { getRlInterface, readFile } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
 const DAY = 3;

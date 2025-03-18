@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFile } from "../shared/fileReader.mjs";
+import { readFile } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
 const DAY = 9;

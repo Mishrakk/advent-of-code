@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { getRlInterface } from "../shared/fileReader.mjs";
+import { getRlInterface } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
 const DAY = 19;
@@ -15,25 +15,28 @@ async function solvePartOne(filename) {
 
   for await (const line of rl) {
     if (towels.length === 0) {
-      towels.push(...line.split(', '));
+      towels.push(...line.split(", "));
       continue;
     }
-    if(line.length !== 0 && getNumberOfWaysPatternCanBeConstructed(line, towels) > 0){
+    if (
+      line.length !== 0 &&
+      getNumberOfWaysPatternCanBeConstructed(line, towels) > 0
+    ) {
       score++;
     }
   }
   return score;
 }
 
-function getNumberOfWaysPatternCanBeConstructed(pattern, towels){
-  if(cache.has(pattern)){
+function getNumberOfWaysPatternCanBeConstructed(pattern, towels) {
+  if (cache.has(pattern)) {
     return cache.get(pattern);
   }
   let numberOfWays = 0;
-  for(const towel of towels){
-    if(pattern === towel){
+  for (const towel of towels) {
+    if (pattern === towel) {
       numberOfWays++;
-    } else if(pattern.startsWith(towel)){
+    } else if (pattern.startsWith(towel)) {
       const rest = pattern.substring(towel.length);
       numberOfWays += getNumberOfWaysPatternCanBeConstructed(rest, towels);
     }
@@ -52,8 +55,8 @@ async function solvePartTwo(filename) {
 
   for await (const line of rl) {
     if (towels.length === 0) {
-      towels.push(...line.split(', '));
-    } else if(line.length !== 0){
+      towels.push(...line.split(", "));
+    } else if (line.length !== 0) {
       score += getNumberOfWaysPatternCanBeConstructed(line, towels);
     }
   }

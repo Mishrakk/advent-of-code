@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileTo2DArray, getRlInterface } from "../shared/fileReader.mjs";
+import { readFileTo2DArray, getRlInterface } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
 const DAY = 15;

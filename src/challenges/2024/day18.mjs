@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { getAllNumbersInFile } from "../shared/fileReader.mjs";
+import { getAllNumbersInFile } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
 const DAY = 18;
