@@ -2,14 +2,13 @@
 import { readFile } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 11;
 const stoneCountCache = {};
 const stoneBlinkCache = {};
 
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const file = readFile(DAY, filename);
+  const file = readFile(filename);
   let stones = file.split(" ").map(Number);
 
   return stones
@@ -20,7 +19,7 @@ async function solvePartOne(filename) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const file = readFile(DAY, filename);
+  const file = readFile(filename);
   let stones = file.split(" ").map(Number);
   return stones
     .map((stone) => getStoneCount(stone, 75))
@@ -63,7 +62,7 @@ function getStoneCount(stone, blinks) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day11!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 55312);
   const input2Part1Result = await solvePartOne("input2.txt");

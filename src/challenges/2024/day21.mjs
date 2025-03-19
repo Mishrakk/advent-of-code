@@ -2,13 +2,12 @@
 import { getRlInterface } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 21;
 const cache = new Map();
 
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
   let score = 0;
   const numericPaths = getNumericPaths();
   const directionalPaths = getDirectionalPaths();
@@ -82,7 +81,7 @@ function getCoordinates(index) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
   let score = 0;
   const numericPaths = getNumericPaths();
   const directionalPaths = getDirectionalPaths();
@@ -123,7 +122,7 @@ function getSequenceLength(sequence, paths, iterations) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day21!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 126384);
   const input2Part1Result = await solvePartOne("input2.txt");

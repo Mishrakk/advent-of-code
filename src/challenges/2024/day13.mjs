@@ -1,12 +1,10 @@
 import { readFile } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 13;
-
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const file = readFile(DAY, filename);
+  const file = readFile(filename);
   const numbers = file.match(/\d+/g).map(Number);
   let score = 0;
   for (let i = 0; i < numbers.length; i += 6) {
@@ -34,7 +32,7 @@ async function solvePartOne(filename) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const file = readFile(DAY, filename);
+  const file = readFile(filename);
   const numbers = file.match(/\d+/g).map(Number);
   let score = 0;
   const conversionFactor = 10000000000000;
@@ -70,7 +68,7 @@ function solveCramerRule(a1, b1, c1, a2, b2, c2) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day13!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 480);
   const input2Part1Result = await solvePartOne("input2.txt");

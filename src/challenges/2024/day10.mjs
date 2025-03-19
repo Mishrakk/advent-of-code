@@ -2,12 +2,10 @@
 import { readFileTo2DArray } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 10;
-
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const map = readFileTo2DArray(DAY, filename);
+  const map = readFileTo2DArray(filename);
   let score = 0;
 
   for (let i = 0; i < map.length; i++) {
@@ -80,7 +78,7 @@ function findTrailsUp(map, position) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const map = readFileTo2DArray(DAY, filename);
+  const map = readFileTo2DArray(filename);
   let score = 0;
 
   for (let i = 0; i < map.length; i++) {
@@ -94,7 +92,7 @@ async function solvePartTwo(filename) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day10!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 36);
   const input2Part1Result = await solvePartOne("input2.txt");

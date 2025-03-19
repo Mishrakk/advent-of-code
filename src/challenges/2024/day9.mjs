@@ -2,12 +2,10 @@
 import { readFile } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 9;
-
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const input = readFile(DAY, filename);
+  const input = readFile(filename);
   //console.log("Input:", input);
   const blocks = getBlockRepresentation(input);
   //console.log("Block representation:", blocks.join(""));
@@ -60,7 +58,7 @@ function getChecksum(block) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const input = readFile(DAY, filename);
+  const input = readFile(filename);
   const blocks = getBlockRepresentation(input);
   const compactedBlocks = compactBlocksByWholeFiles(blocks);
   const checksum = getChecksum(compactedBlocks);
@@ -101,7 +99,7 @@ function compactBlocksByWholeFiles(blocks) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day9!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 1928);
   const input2Part1Result = await solvePartOne("input2.txt");

@@ -2,13 +2,12 @@
 import { readFileTo2DArray } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 6;
 const DIRECTIONS = ["^", ">", "v", "<"];
 
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const map = readFileTo2DArray(DAY, filename);
+  const map = readFileTo2DArray(filename);
   let guardPosition = findGuardPosition(map);
 
   while (isPositionInbounds(map, guardPosition)) {
@@ -97,7 +96,7 @@ function isPositionInbounds(map, position) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const map = readFileTo2DArray(DAY, filename);
+  const map = readFileTo2DArray(filename);
   const startingGuardPosition = findGuardPosition(map);
   let guardPosition = startingGuardPosition;
   let obstaclePositions = new Set();
@@ -142,7 +141,7 @@ function positionToString(position) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day6!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 41);
   const input2Part1Result = await solvePartOne("input2.txt");

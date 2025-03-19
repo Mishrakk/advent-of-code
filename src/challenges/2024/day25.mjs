@@ -2,13 +2,11 @@
 import { getRlInterface } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 25;
-
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
   const lines = [];
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
 
   for await (const line of rl) {
     lines.push(line);
@@ -54,7 +52,7 @@ async function solvePartOne(filename) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
   let score = 0;
 
   for await (const line of rl) {
@@ -63,7 +61,7 @@ async function solvePartTwo(filename) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day25!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 3);
   const input2Part1Result = await solvePartOne("input2.txt");

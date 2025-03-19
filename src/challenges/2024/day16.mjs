@@ -3,14 +3,12 @@ import { readFileTo2DArray } from "../../shared/fileReader.mjs";
 import { getPosition, printGrid } from "../../shared/grid.mjs";
 import assert from "assert";
 
-const DAY = 16;
-
 const DIRECTIONS = ["^", ">", "v", "<"];
 
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const grid = readFileTo2DArray(DAY, filename);
+  const grid = readFileTo2DArray(filename);
   const startingPosition = getPosition(grid, "S");
   const distances = findDistances(grid, startingPosition);
   const endingPosition = getPosition(grid, "E");
@@ -181,7 +179,7 @@ function getPositionKey(position) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const grid = readFileTo2DArray(DAY, filename);
+  const grid = readFileTo2DArray(filename);
   const startingPosition = getPosition(grid, "S");
   const endingPosition = getPosition(grid, "E");
   const distances = findDistances(grid, startingPosition);
@@ -208,7 +206,7 @@ function printGridWithNodesOnBestPaths(grid, nodesOnBestPaths) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day16!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 7036);
   const input2Part1Result = await solvePartOne("input2.txt");

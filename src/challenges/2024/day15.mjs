@@ -2,8 +2,6 @@
 import { readFileTo2DArray, getRlInterface } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 15;
-
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
@@ -37,7 +35,7 @@ async function solvePartOne(filename) {
 }
 
 async function readInput(filename) {
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
   const grid = [];
   const instructions = [];
 
@@ -211,7 +209,7 @@ function getSiblingPosition(grid, position) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day15!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 2028);
   const input2Part1Result = await solvePartOne("input2.txt");

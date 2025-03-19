@@ -1,8 +1,7 @@
 #!/usr/bin/env node
-import { getAllNumbersInFile } from "../../shared/fileReader.mjs";
+import { readFile } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 18;
 const NEIGHBORS_VECTORS = [
   { i: -1, j: 0 }, // up
   { i: 1, j: 0 }, // down
@@ -13,7 +12,7 @@ const NEIGHBORS_VECTORS = [
 function solvePartOne(filename, parameters) {
   console.log("Solving part one of file:", filename);
 
-  const numbers = getAllNumbersInFile(DAY, filename);
+  const numbers = getAllNumbersInFile(filename);
   const grid = constructGrid(numbers, parameters);
 
   const startingPosition = { i: 0, j: 0 };
@@ -81,7 +80,7 @@ function getPositionKey(position) {
 async function solvePartTwo(filename, parameters) {
   console.log("Solving part two of file:", filename);
 
-  const numbers = getAllNumbersInFile(DAY, filename);
+  const numbers = getAllNumbersInFile(filename);
   let max = numbers.length / 2;
   let min = parameters.bytesToTake;
 
@@ -107,8 +106,13 @@ function isMazeSolvable(grid) {
   return distances[getPositionKey(finishPosition)] !== undefined;
 }
 
+function getAllNumbersInFile(filename) {
+  const file = readFile(filename);
+  return file.match(/-?\d+/g).map(Number);
+}
+
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day18!`);
   const input1Part1Result = solvePartOne("input1.txt", {
     gridSize: 7,
     bytesToTake: 12,

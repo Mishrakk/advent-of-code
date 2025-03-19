@@ -9,7 +9,7 @@ async function solvePartOne(filename) {
   const list1 = [];
   const list2 = [];
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
 
   for await (const line of rl) {
     const [value1, value2] = line.split("   ");
@@ -33,7 +33,7 @@ async function solvePartTwo(filename) {
   const list1 = [];
   const list2 = [];
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
 
   for await (const line of rl) {
     const [value1, value2] = line.split("   ");

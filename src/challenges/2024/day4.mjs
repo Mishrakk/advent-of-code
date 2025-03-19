@@ -2,12 +2,10 @@
 import { getRlInterface, readFileTo2DArray } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 4;
-
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
 
   let xmasCount = 0;
   let verticals = [];
@@ -65,7 +63,7 @@ function initializeDiagonals(line) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const array2D = readFileTo2DArray(DAY, filename);
+  const array2D = readFileTo2DArray(filename);
   // first index is row number
   let matches = 0;
   for (let i = 1; i < array2D.length - 1; i++) {
@@ -95,7 +93,7 @@ function getXmasCountInLine(line) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day4!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 18);
   const input2Part1Result = await solvePartOne("input2.txt");

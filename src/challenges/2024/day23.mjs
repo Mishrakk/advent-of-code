@@ -2,12 +2,10 @@
 import { getRlInterface } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 23;
-
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
 
   const { tNodes, connections } = await getTNodesAndConnections(rl);
 
@@ -77,7 +75,7 @@ async function getNodes(rl) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
   const allNodes = await getNodes(rl);
   const nodesToProcess = new Set(allNodes.keys());
   const cliques = [];
@@ -117,7 +115,7 @@ async function solvePartTwo(filename) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day23!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 7);
   const input2Part1Result = await solvePartOne("input2.txt");

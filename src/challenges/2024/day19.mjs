@@ -2,13 +2,12 @@
 import { getRlInterface } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 19;
 const cache = new Map();
 
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
   const towels = [];
   let score = 0;
   cache.clear();
@@ -48,7 +47,7 @@ function getNumberOfWaysPatternCanBeConstructed(pattern, towels) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
   const towels = [];
   let score = 0;
   cache.clear();
@@ -64,7 +63,7 @@ async function solvePartTwo(filename) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day19!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 6);
   const input2Part1Result = await solvePartOne("input2.txt");

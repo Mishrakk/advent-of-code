@@ -3,8 +3,6 @@ import { readFileTo2DArray } from "../../shared/fileReader.mjs";
 import { getPosition } from "../../shared/grid.mjs";
 import assert from "assert";
 
-const DAY = 20;
-
 const NEIGHBORS_VECTORS = [
   { i: -1, j: 0 }, // up
   { i: 1, j: 0 }, // down
@@ -15,7 +13,7 @@ const NEIGHBORS_VECTORS = [
 async function solvePartOne(filename, minSave) {
   console.log("Solving part one of file:", filename);
 
-  const grid = readFileTo2DArray(DAY, filename);
+  const grid = readFileTo2DArray(filename);
   const startingPosition = getPosition(grid, "S");
   const endingPosition = getPosition(grid, "E");
   const distances = findDistances(grid, startingPosition);
@@ -92,7 +90,7 @@ function findDistances(grid, startingPosition) {
 
 async function solvePartTwo(filename, minSave) {
   console.log("Solving part two of file:", filename);
-  const grid = readFileTo2DArray(DAY, filename);
+  const grid = readFileTo2DArray(filename);
   const startingPosition = getPosition(grid, "S");
   const endingPosition = getPosition(grid, "E");
   const distances = findDistances(grid, startingPosition);
@@ -135,7 +133,7 @@ function getManhattanDistance(p1i, p1j, p2i, p2j) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day20!`);
   const input1Part1Result = await solvePartOne("input1.txt", 20);
   assert.strictEqual(input1Part1Result, 5);
   const input2Part1Result = await solvePartOne("input2.txt", 100);

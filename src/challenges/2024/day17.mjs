@@ -2,12 +2,10 @@
 import { readFile } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 17;
-
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const file = readFile(DAY, filename);
+  const file = readFile(filename);
   const { registers, program } = getInput(file);
   const output = runProgram(registers, program);
 
@@ -100,7 +98,7 @@ function getInput(file) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const file = readFile(DAY, filename);
+  const file = readFile(filename);
   const { registers, program } = getInput(file);
   let a = 0;
   for (let i = program.length - 1; i >= 0; i--) {
@@ -117,7 +115,7 @@ async function solvePartTwo(filename) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day17!`);
   runTestCases();
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, "4,6,3,5,6,3,5,2,1,0");

@@ -3,12 +3,10 @@ import { getRlInterface } from "../../shared/fileReader.mjs";
 import { printGrid } from "../../shared/grid.mjs";
 import assert from "assert";
 
-const DAY = 14;
-
 async function solvePartOne(filename, limits) {
   console.log("Solving part one of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
   const quadrants = [0, 0, 0, 0];
 
   for await (const line of rl) {
@@ -53,7 +51,7 @@ function moveNTimes(robot, limits, times) {
 async function solvePartTwo(filename, limits) {
   console.log("Solving part two of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
   const robots = [];
 
   for await (const line of rl) {
@@ -106,7 +104,7 @@ function isEasterEgg(robots, limits) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day14!`);
   const input1Part1Result = await solvePartOne("input1.txt", { x: 11, y: 7 });
   assert.strictEqual(input1Part1Result, 12);
   const input2Part1Result = await solvePartOne("input2.txt", {

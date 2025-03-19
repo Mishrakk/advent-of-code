@@ -2,12 +2,10 @@
 import { getRlInterface, readFile } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 24;
-
 function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const file = readFile(DAY, filename);
+  const file = readFile(filename);
 
   const { inputs, gates } = parseInput(file);
 
@@ -70,7 +68,7 @@ function calculateOutput(input1, input2, gate) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const file = readFile(DAY, filename);
+  const file = readFile(filename);
 
   const { inputs, gates } = parseInput(file);
 
@@ -171,7 +169,7 @@ function andGateWithXYInputIsInputToOrGate(gate, gates) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day24!`);
   const input1Part1Result = solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 4);
   const input2Part1Result = solvePartOne("input2.txt");

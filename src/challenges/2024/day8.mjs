@@ -2,12 +2,10 @@
 import { getRlInterface } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 8;
-
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
 
   const { antennas, lineIndex } = await getAntennas(rl);
 
@@ -64,7 +62,7 @@ function isInbounds(position, limit) {
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
   const { antennas, lineIndex } = await getAntennas(rl);
 
   let antinodes = new Set();
@@ -102,7 +100,7 @@ async function solvePartTwo(filename) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day8!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 14);
   const input2Part1Result = await solvePartOne("input2.txt");

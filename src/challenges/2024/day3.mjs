@@ -2,12 +2,10 @@
 import { getRlInterface, readFile } from "../../shared/fileReader.mjs";
 import assert from "assert";
 
-const DAY = 3;
-
 async function solvePartOne(filename) {
   console.log("Solving part one of file:", filename);
 
-  const rl = getRlInterface(DAY, filename);
+  const rl = getRlInterface(filename);
 
   let sum = 0;
 
@@ -20,7 +18,7 @@ async function solvePartOne(filename) {
 
 async function solvePartTwo(filename) {
   console.log("Solving part two of file:", filename);
-  const fullText = readFile(DAY, filename);
+  const fullText = readFile(filename);
 
   const combinedPattern = /mul\((\d+),(\d+)\)|do\(\)|don't\(\)/g;
 
@@ -49,7 +47,7 @@ function getSum(text) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day3!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 161);
   const input2Part1Result = await solvePartOne("input2.txt");
