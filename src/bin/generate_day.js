@@ -1,16 +1,30 @@
 const fs = require("fs");
 const path = require("path");
 
-const input = process.argv[2];
-if (!input) {
-  console.error("Please provide a day number as an argument.");
+const challenge = process.argv[2];
+if (!challenge) {
+  console.error("Please provide a challenge name argument.");
+  process.exit(1);
+}
+const day = process.argv[3];
+if (!day) {
+  console.error("Please provide a day number argument.");
   process.exit(1);
 }
 
 const dayTemplatePath = path.resolve(__dirname, "day_template.mjs");
-const newDayFilePath = path.resolve(__dirname, `../days/day${input}.mjs`);
-const inputTemplatePath = path.resolve(__dirname, "../../inputs/day_template");
-const newInputFolderPath = path.resolve(__dirname, `../../inputs/day${input}`);
+const newDayFilePath = path.resolve(
+  __dirname,
+  `../challenges/${challenge}/day${day}.mjs`
+);
+const inputTemplatePath = path.resolve(
+  __dirname,
+  `../../inputs/${challenge}/day_template`
+);
+const newInputFolderPath = path.resolve(
+  __dirname,
+  `../../inputs/${challenge}/day${day}`
+);
 
 // Copy day_template.mjs to ../days/day${input}.mjs
 fs.copyFile(dayTemplatePath, newDayFilePath, (err) => {
@@ -19,14 +33,14 @@ fs.copyFile(dayTemplatePath, newDayFilePath, (err) => {
     process.exit(1);
   }
 
-  // Replace DAY = 1 with DAY = ${input} in the new file
+  // Replace ${day} with value
   fs.readFile(newDayFilePath, "utf8", (err, data) => {
     if (err) {
       console.error("Error reading new day file:", err);
       process.exit(1);
     }
 
-    const result = data.replace("DAY = 1", `DAY = ${input}`);
+    const result = data.replace("${day}", day);
 
     fs.writeFile(newDayFilePath, result, "utf8", (err) => {
       if (err) {
@@ -37,7 +51,7 @@ fs.copyFile(dayTemplatePath, newDayFilePath, (err) => {
   });
 });
 
-// Copy ../../inputs/day_template folder to ../../inputs/day${input}
+// Copy day_template folder to ../inputs/${challenge}/day${input}
 fs.cp(inputTemplatePath, newInputFolderPath, { recursive: true }, (err) => {
   if (err) {
     console.error("Error copying input template folder:", err);
