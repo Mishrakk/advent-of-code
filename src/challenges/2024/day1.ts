@@ -1,20 +1,17 @@
-#!/usr/bin/env node
 import assert from "assert";
-import { getRlInterface } from "../../shared/fileReader.mjs";
+import { getRlInterface } from "../../shared/fileReader";
 
-const DAY = 1;
-
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
-  const list1 = [];
-  const list2 = [];
+  const list1: number[] = [];
+  const list2: number[] = [];
 
   const rl = getRlInterface(filename);
 
   for await (const line of rl) {
     const [value1, value2] = line.split("   ");
-    list1.push(value1);
-    list2.push(value2);
+    list1.push(Number(value1));
+    list2.push(Number(value2));
   }
 
   list1.sort();
@@ -28,7 +25,7 @@ async function solvePartOne(filename) {
   return distance;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
   const list1 = [];
   const list2 = [];
@@ -46,15 +43,15 @@ async function solvePartTwo(filename) {
 
   let similarity = 0;
   Object.keys(occurrences1).forEach((key) => {
-    similarity += key * occurrences1[key] * (occurrences2[key] || 0);
+    similarity += Number(key) * occurrences1[key] * (occurrences2[key] || 0);
   });
 
   console.log("Similarity score:", similarity);
   return similarity;
 }
 
-function countOccurrences(numbers) {
-  const occurrences = {};
+function countOccurrences(numbers: string[]) {
+  const occurrences: { [key: string]: number } = {};
   numbers.forEach((number) => {
     occurrences[number] = (occurrences[number] || 0) + 1;
   });
@@ -62,7 +59,7 @@ function countOccurrences(numbers) {
 }
 
 export async function main() {
-  console.log(`Hello from day${DAY}!`);
+  console.log(`Hello from day1!`);
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, 11);
   const input2Part1Result = await solvePartOne("input2.txt");
