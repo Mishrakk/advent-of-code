@@ -34,7 +34,6 @@ function getChallengeAndDay(errorStack: string | undefined) {
     /challenges[/\\]([^/\\]+)[/\\]day([^/\\]+)\.ts/
   );
   if (!match) {
-    console.log(errorStack);
     throw new Error("Could not determine challenge and day from caller file");
   }
   return { challenge: match[1], day: match[2] };
@@ -48,7 +47,6 @@ function getCallerFile(errorStack: string | undefined) {
   if (!callerFileMatch) {
     throw new Error("Could not parse stack trace");
   }
-  console.log(callerFileMatch);
   return callerFileMatch[1];
 }
 
