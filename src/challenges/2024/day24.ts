@@ -1,8 +1,14 @@
-#!/usr/bin/env node
-import { getRlInterface, readFile } from "../../shared/fileReader.mjs";
+import { readFile } from "../../shared/fileReader";
 import assert from "assert";
 
-function solvePartOne(filename) {
+interface Gate {
+  input1: string;
+  gate: string;
+  input2: string;
+  output: string;
+}
+
+function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const file = readFile(filename);
@@ -34,7 +40,7 @@ function solvePartOne(filename) {
   return decimalValue;
 }
 
-function parseInput(file) {
+function parseInput(file: string) {
   const inputs = new Map();
 
   const inputMatches = file.matchAll(/(\w+): (\d)/g);
@@ -54,7 +60,7 @@ function parseInput(file) {
   return { inputs, gates };
 }
 
-function calculateOutput(input1, input2, gate) {
+function calculateOutput(input1: number, input2: number, gate: string) {
   switch (gate) {
     case "AND":
       return input1 * input2;
@@ -65,7 +71,7 @@ function calculateOutput(input1, input2, gate) {
   }
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const file = readFile(filename);
@@ -98,7 +104,7 @@ async function solvePartTwo(filename) {
   return answer;
 }
 
-function zOutputHasXorGate(gate) {
+function zOutputHasXorGate(gate: Gate) {
   if (
     gate.output.startsWith("z") &&
     gate.output !== "z45" &&
@@ -109,7 +115,7 @@ function zOutputHasXorGate(gate) {
   return true;
 }
 
-function xorGateHasXYInput(gate) {
+function xorGateHasXYInput(gate: Gate) {
   if (
     gate.gate === "XOR" &&
     !gate.output.startsWith("z") &&
@@ -123,7 +129,7 @@ function xorGateHasXYInput(gate) {
   return true;
 }
 
-function xorGateWithXYInputIsInputToXorGate(gate, gates) {
+function xorGateWithXYInputIsInputToXorGate(gate: Gate, gates: Gate[]) {
   if (
     gate.gate === "XOR" &&
     (gate.input1.startsWith("x") ||
@@ -145,7 +151,7 @@ function xorGateWithXYInputIsInputToXorGate(gate, gates) {
   return true;
 }
 
-function andGateWithXYInputIsInputToOrGate(gate, gates) {
+function andGateWithXYInputIsInputToOrGate(gate: Gate, gates: Gate[]) {
   if (
     gate.gate === "AND" &&
     (gate.input1.startsWith("x") ||

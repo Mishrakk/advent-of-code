@@ -1,28 +1,35 @@
-#!/usr/bin/env node
-import { readFileTo2DArray } from "../../shared/fileReader.mjs";
-import { getPosition, printGrid } from "../../shared/grid.mjs";
+import { readFileTo2DArray } from "../../shared/fileReader";
+import { getPosition, printGrid } from "../../shared/grid";
 import assert from "assert";
+
+interface Position {
+  i: number;
+  j: number;
+  direction?: string;
+  path?: Position[];
+  cost?: number;
+}
 
 const DIRECTIONS = ["^", ">", "v", "<"];
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const grid = readFileTo2DArray(filename);
-  const startingPosition = getPosition(grid, "S");
+  const startingPosition = getPosition(grid, "S")!;
   const distances = findDistances(grid, startingPosition);
-  const endingPosition = getPosition(grid, "E");
+  const endingPosition = getPosition(grid, "E")!;
   const endingPositionKey = `${endingPosition.i},${endingPosition.j}`;
   return distances[endingPositionKey];
 }
 
-function findDistances(grid, startingPosition) {
+function findDistances(grid: string[][], startingPosition: Position) {
   const visited = new Set();
-  const distances = {};
+  const distances: { [key: string]: number } = {};
   const queue = [{ ...startingPosition, cost: 0, direction: ">" }];
   while (queue.length > 0) {
     queue.sort((a, b) => a.cost - b.cost);
-    const position = queue.shift();
+    const position = queue.shift()!;
     const positionKey = getPositionKey(position);
     if (visited.has(positionKey)) {
       continue;
@@ -59,19 +66,18 @@ function findDistances(grid, startingPosition) {
 }
 
 function findNodesOnBestPaths(
-  grid,
-  startingPosition,
-  endingPosition,
-  bestPathCost
+  grid: string[][],
+  startingPosition: Position,
+  endingPosition: Position,
+  bestPathCost: number
 ) {
-  const visited = new Set();
-  const distances = {};
-  const queue = [{ ...startingPosition, cost: 0, direction: ">", path: [] }];
+  const distances: { [key: string]: number } = {};
+  const queue = [
+    { ...startingPosition, cost: 0, direction: ">", path: [] as Position[] },
+  ];
   const nodesOnBestPaths = new Set();
   while (queue.length > 0) {
-    //queue.sort((a, b) => a.cost - b.cost);
-    const position = queue.pop();
-    //printGridWithPosition(grid, position);
+    const position = queue.pop()!;
     position.path.push({ i: position.i, j: position.j });
     const distancesKey = `${position.i},${position.j},${position.direction}`;
 
@@ -109,17 +115,6 @@ function findNodesOnBestPaths(
       continue;
     }
 
-    // console.log(
-    //   "position",
-    //   `${position.i},${position.j},${position.direction}`
-    // );
-
-    // const visitedKey = `${position.i},${position.j},${position.direction}`;
-    // if (visited.has(visitedKey)) {
-    //   continue;
-    // }
-    // visited.add(visitedKey);
-
     for (const newDirectionChange of [-1, 0, 1]) {
       const newDirection =
         DIRECTIONS[
@@ -135,6 +130,7 @@ function findNodesOnBestPaths(
           newDirection === position.direction
             ? position.cost + 1
             : position.cost + 1001,
+        path: [] as Position[],
       };
       if (isLegalPosition(grid, newPosition)) {
         newPosition.path = [...position.path];
@@ -145,7 +141,7 @@ function findNodesOnBestPaths(
   return nodesOnBestPaths;
 }
 
-function getNewPosition(position, direction) {
+function getNewPosition(position: Position, direction: string) {
   let i = position.i;
   let j = position.j;
   switch (direction) {
@@ -168,20 +164,20 @@ function getNewPosition(position, direction) {
   };
 }
 
-function isLegalPosition(grid, position) {
+function isLegalPosition(grid: string[][], position: Position) {
   return grid[position.i][position.j] !== "#";
 }
 
-function getPositionKey(position) {
+function getPositionKey(position: Position) {
   return `${position.i},${position.j},${position.direction}`;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const grid = readFileTo2DArray(filename);
-  const startingPosition = getPosition(grid, "S");
-  const endingPosition = getPosition(grid, "E");
+  const startingPosition = getPosition(grid, "S")!;
+  const endingPosition = getPosition(grid, "E")!;
   const distances = findDistances(grid, startingPosition);
   const bestPathCost = distances[`${endingPosition.i},${endingPosition.j}`];
   const nodesOnBestPaths = findNodesOnBestPaths(
@@ -191,18 +187,6 @@ async function solvePartTwo(filename) {
     bestPathCost
   );
   return nodesOnBestPaths.size;
-}
-
-function printGridWithNodesOnBestPaths(grid, nodesOnBestPaths) {
-  const gridCopy = grid.map((row) => [...row]);
-  for (let i = 0; i < gridCopy.length; i++) {
-    for (let j = 0; j < gridCopy[i].length; j++) {
-      if (nodesOnBestPaths.has(`${i},${j}`)) {
-        gridCopy[i][j] = "O";
-      }
-    }
-  }
-  printGrid(gridCopy);
 }
 
 export async function main() {

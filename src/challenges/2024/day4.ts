@@ -1,16 +1,15 @@
-#!/usr/bin/env node
-import { getRlInterface, readFileTo2DArray } from "../../shared/fileReader.mjs";
+import { getRlInterface, readFileTo2DArray } from "../../shared/fileReader";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const rl = getRlInterface(filename);
 
   let xmasCount = 0;
   let verticals = [];
-  let diagonals = [];
-  let reverseDiagonals = [];
+  let diagonals: string[] = [];
+  let reverseDiagonals: string[] = [];
 
   for await (const line of rl) {
     if (diagonals.length === 0) {
@@ -52,7 +51,7 @@ async function solvePartOne(filename) {
   return xmasCount;
 }
 
-function initializeDiagonals(line) {
+function initializeDiagonals(line: string) {
   let diagonals = [];
   for (let i = 1; i < line.length; i++) {
     diagonals.push(".".repeat(i));
@@ -60,7 +59,7 @@ function initializeDiagonals(line) {
   return diagonals;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const array2D = readFileTo2DArray(filename);
@@ -84,7 +83,7 @@ async function solvePartTwo(filename) {
   return matches;
 }
 
-function getXmasCountInLine(line) {
+function getXmasCountInLine(line: string) {
   const xmasPattern = /XMAS/g;
   const xmasMatches = line.match(xmasPattern)?.length ?? 0;
   const samxPattern = /SAMX/g;

@@ -1,8 +1,7 @@
-#!/usr/bin/env node
-import { getRlInterface } from "../../shared/fileReader.mjs";
+import { getRlInterface } from "../../shared/fileReader";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
   let correctReports = 0;
 
@@ -19,7 +18,7 @@ async function solvePartOne(filename) {
   return correctReports;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
   let correctReports = 0;
 
@@ -36,11 +35,11 @@ async function solvePartTwo(filename) {
   return correctReports;
 }
 
-function isReportCorrect(report) {
+function isReportCorrect(report: string[]) {
   for (let i = 1; i < report.length - 1; i++) {
-    const previous = report[i - 1];
-    const current = report[i];
-    const next = report[i + 1];
+    const previous = Number(report[i - 1]);
+    const current = Number(report[i]);
+    const next = Number(report[i + 1]);
     const isCorrect = isLevelCorrect(previous, current, next);
     if (!isCorrect) {
       return false;
@@ -49,7 +48,7 @@ function isReportCorrect(report) {
   return true;
 }
 
-function isLevelCorrect(previous, current, next) {
+function isLevelCorrect(previous: number, current: number, next: number) {
   const diffPrev = current - previous;
   const diffNext = next - current;
   if (Math.abs(diffPrev) > 3 || Math.abs(diffNext) > 3) {

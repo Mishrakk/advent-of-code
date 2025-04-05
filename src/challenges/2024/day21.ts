@@ -1,10 +1,9 @@
-#!/usr/bin/env node
-import { getRlInterface } from "../../shared/fileReader.mjs";
+import { getRlInterface } from "../../shared/fileReader";
 import assert from "assert";
 
 const cache = new Map();
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const rl = getRlInterface(filename);
@@ -22,7 +21,7 @@ async function solvePartOne(filename) {
   return score;
 }
 
-function convertSequence(sequence, paths) {
+function convertSequence(sequence: string, paths: { [key: string]: string }) {
   let result = "";
   let previous = "A";
   for (let i = 0; i < sequence.length; i++) {
@@ -43,8 +42,8 @@ function getDirectionalPaths() {
   return getPathsForKeys(keys);
 }
 
-function getPathsForKeys(keys) {
-  const paths = {};
+function getPathsForKeys(keys: string[]) {
+  const paths: { [key: string]: string } = {};
   const keyInvalid = getCoordinates(keys.indexOf(""));
 
   for (let k1 = 0; k1 < keys.length; k1++) {
@@ -71,14 +70,14 @@ function getPathsForKeys(keys) {
   return paths;
 }
 
-function getCoordinates(index) {
+function getCoordinates(index: number) {
   return {
     i: Math.floor(index / 3),
     j: index % 3,
   };
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const rl = getRlInterface(filename);
@@ -95,7 +94,11 @@ async function solvePartTwo(filename) {
   return score;
 }
 
-function getSequenceLength(sequence, paths, iterations) {
+function getSequenceLength(
+  sequence: string,
+  paths: { [key: string]: string },
+  iterations: number
+) {
   if (iterations === 0) {
     return sequence.length;
   }

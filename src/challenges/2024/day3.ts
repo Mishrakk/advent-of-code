@@ -1,8 +1,7 @@
-#!/usr/bin/env node
-import { getRlInterface, readFile } from "../../shared/fileReader.mjs";
+import { getRlInterface, readFile } from "../../shared/fileReader";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const rl = getRlInterface(filename);
@@ -16,7 +15,7 @@ async function solvePartOne(filename) {
   return sum;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
   const fullText = readFile(filename);
 
@@ -30,18 +29,18 @@ async function solvePartTwo(filename) {
     } else if (match[0] === "don't()") {
       enabled = false;
     } else if (enabled) {
-      sum += match[1] * match[2];
+      sum += Number(match[1]) * Number(match[2]);
     }
   }
   console.log("Sum:", sum);
   return sum;
 }
 
-function getSum(text) {
+function getSum(text: string) {
   let sum = 0;
   const pattern = /mul\((\d+),(\d+)\)/g;
   for (const match of text.matchAll(pattern)) {
-    sum += match[1] * match[2];
+    sum += Number(match[1]) * Number(match[2]);
   }
   return sum;
 }

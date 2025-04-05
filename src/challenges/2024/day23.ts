@@ -1,8 +1,8 @@
-#!/usr/bin/env node
-import { getRlInterface } from "../../shared/fileReader.mjs";
+import { getRlInterface } from "../../shared/fileReader";
 import assert from "assert";
+import readline from "readline";
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const rl = getRlInterface(filename);
@@ -27,9 +27,9 @@ async function solvePartOne(filename) {
   return tNodesGroups.size;
 }
 
-async function getTNodesAndConnections(rl) {
+async function getTNodesAndConnections(rl: readline.Interface) {
   const connections = new Map();
-  const tNodes = {};
+  const tNodes: { [key: string]: Set<string> } = {};
 
   for await (const line of rl) {
     const [node1, node2] = line.split("-");
@@ -55,7 +55,7 @@ async function getTNodesAndConnections(rl) {
   return { tNodes, connections };
 }
 
-async function getNodes(rl) {
+async function getNodes(rl: readline.Interface) {
   const nodes = new Map();
 
   for await (const line of rl) {
@@ -72,7 +72,7 @@ async function getNodes(rl) {
   return nodes;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const rl = getRlInterface(filename);

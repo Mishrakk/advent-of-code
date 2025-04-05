@@ -1,8 +1,12 @@
-#!/usr/bin/env node
-import { readFileTo2DArray } from "../../shared/fileReader.mjs";
+import { readFileTo2DArray } from "../../shared/fileReader";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+interface Position {
+  i: number;
+  j: number;
+}
+
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const grid = readFileTo2DArray(filename);
@@ -25,13 +29,13 @@ async function solvePartOne(filename) {
   return price;
 }
 
-function getFence(grid, startingPosition) {
+function getFence(grid: string[][], startingPosition: Position) {
   let perimeter = 0;
   const queue = [startingPosition];
   const visited = new Set();
   let corners = 0;
   while (queue.length > 0) {
-    const position = queue.shift();
+    const position = queue.shift()!;
     if (visited.has(getPositionString(position))) {
       continue;
     }
@@ -45,11 +49,11 @@ function getFence(grid, startingPosition) {
   return { perimeter, area, visited, corners };
 }
 
-function getPositionString(position) {
+function getPositionString(position: Position) {
   return `${position.i},${position.j}`;
 }
 
-function getNeighbors(grid, position) {
+function getNeighbors(grid: string[][], position: Position) {
   const neighbors = [];
   const directions = [
     [0, 1],
@@ -71,7 +75,7 @@ function getNeighbors(grid, position) {
   return neighbors;
 }
 
-function getCorners(grid, position) {
+function getCorners(grid: string[][], position: Position) {
   const hasTopNeighbor = hasNeighbor("TOP", grid, position);
   const hasBottomNeighbor = hasNeighbor("BOTTOM", grid, position);
   const hasLeftNeighbor = hasNeighbor("LEFT", grid, position);
@@ -122,7 +126,7 @@ function getCorners(grid, position) {
   return corners;
 }
 
-function hasNeighbor(direction, grid, position) {
+function hasNeighbor(direction: string, grid: string[][], position: Position) {
   const change = getDirectionChange(direction);
   const i = position.i + change[0];
   const j = position.j + change[1];
@@ -138,7 +142,7 @@ function hasNeighbor(direction, grid, position) {
   return true;
 }
 
-function getDirectionChange(direction) {
+function getDirectionChange(direction: string) {
   const change = [0, 0];
   if (direction.match(/TOP/i)) {
     change[0] += -1;
@@ -155,7 +159,7 @@ function getDirectionChange(direction) {
   return change;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const grid = readFileTo2DArray(filename);

@@ -1,8 +1,7 @@
-#!/usr/bin/env node
-import { getRlInterface } from "../../shared/fileReader.mjs";
+import { getRlInterface } from "../../shared/fileReader";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const rl = getRlInterface(filename);
@@ -29,7 +28,7 @@ async function solvePartOne(filename) {
   return middleSum;
 }
 
-function isUpdateValid(update, rules) {
+function isUpdateValid(update: string, rules: string[][]) {
   for (const rule of rules) {
     const updateInvalidPattern = new RegExp(`${rule[1]},.*${rule[0]}`);
     if (update.match(updateInvalidPattern)) {
@@ -39,7 +38,7 @@ function isUpdateValid(update, rules) {
   return true;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const rl = getRlInterface(filename);
@@ -70,12 +69,15 @@ async function solvePartTwo(filename) {
   return middleSum;
 }
 
-function correctUpdate(update, rules) {
+function correctUpdate(update: string, rules: string[][]) {
   const numbers = update.split(",");
-  const numbersObject = numbers.reduce((obj, value, index) => {
-    obj[value] = index;
-    return obj;
-  }, {});
+  const numbersObject = numbers.reduce<Record<string, number>>(
+    (obj, value, index) => {
+      obj[value] = index;
+      return obj;
+    },
+    {}
+  );
   for (const rule of rules) {
     if (numbersObject[rule[0]] > numbersObject[rule[1]]) {
       const temp = numbersObject[rule[0]];

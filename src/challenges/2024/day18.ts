@@ -1,5 +1,4 @@
-#!/usr/bin/env node
-import { readFile } from "../../shared/fileReader.mjs";
+import { readFile } from "../../shared/fileReader";
 import assert from "assert";
 
 const NEIGHBORS_VECTORS = [
@@ -9,7 +8,18 @@ const NEIGHBORS_VECTORS = [
   { i: 0, j: 1 }, // right
 ];
 
-function solvePartOne(filename, parameters) {
+interface Parameters {
+  gridSize: number;
+  bytesToTake: number;
+}
+
+interface Position {
+  i: number;
+  j: number;
+  cost?: number;
+}
+
+function solvePartOne(filename: string, parameters: Parameters) {
   console.log("Solving part one of file:", filename);
 
   const numbers = getAllNumbersInFile(filename);
@@ -25,7 +35,7 @@ function solvePartOne(filename, parameters) {
   return score;
 }
 
-function constructGrid(numbers, parameters) {
+function constructGrid(numbers: number[], parameters: Parameters) {
   const grid = Array.from({ length: parameters.gridSize }, () =>
     Array(parameters.gridSize).fill(".")
   );
@@ -35,13 +45,13 @@ function constructGrid(numbers, parameters) {
   return grid;
 }
 
-function findDistances(grid, startingPosition) {
+function findDistances(grid: string[][], startingPosition: Position) {
   const visited = new Set();
-  const distances = {};
+  const distances: { [key: string]: number } = {};
   const queue = [{ ...startingPosition, cost: 0 }];
   while (queue.length > 0) {
     queue.sort((a, b) => a.cost - b.cost);
-    const position = queue.shift();
+    const position = queue.shift()!;
     const positionKey = getPositionKey(position);
     if (visited.has(positionKey)) {
       continue;
@@ -73,11 +83,11 @@ function findDistances(grid, startingPosition) {
   return distances;
 }
 
-function getPositionKey(position) {
+function getPositionKey(position: Position) {
   return `${position.i},${position.j}`;
 }
 
-async function solvePartTwo(filename, parameters) {
+async function solvePartTwo(filename: string, parameters: Parameters) {
   console.log("Solving part two of file:", filename);
 
   const numbers = getAllNumbersInFile(filename);
@@ -99,16 +109,16 @@ async function solvePartTwo(filename, parameters) {
   return `${numbers[min * 2]},${numbers[min * 2 + 1]}`;
 }
 
-function isMazeSolvable(grid) {
+function isMazeSolvable(grid: string[][]) {
   const startingPosition = { i: 0, j: 0 };
   const finishPosition = { i: grid.length - 1, j: grid[0].length - 1 };
   const distances = findDistances(grid, startingPosition);
   return distances[getPositionKey(finishPosition)] !== undefined;
 }
 
-function getAllNumbersInFile(filename) {
+function getAllNumbersInFile(filename: string) {
   const file = readFile(filename);
-  return file.match(/-?\d+/g).map(Number);
+  return file.match(/-?\d+/g)!.map(Number);
 }
 
 export async function main() {

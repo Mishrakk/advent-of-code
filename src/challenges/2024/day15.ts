@@ -1,13 +1,22 @@
-#!/usr/bin/env node
-import { readFileTo2DArray, getRlInterface } from "../../shared/fileReader.mjs";
+import { getRlInterface } from "../../shared/fileReader";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+interface Position {
+  i: number;
+  j: number;
+}
+
+interface Vector {
+  i: number;
+  j: number;
+}
+
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const { instructions, grid } = await readInput(filename);
 
-  let position = getStartingPosition(grid);
+  let position = getStartingPosition(grid)!;
   for (const instruction of instructions) {
     const changeVector = getChangeVector(instruction);
     const trainLength = getTrainLength(grid, position, changeVector);
@@ -34,7 +43,7 @@ async function solvePartOne(filename) {
   return getScore(grid);
 }
 
-async function readInput(filename) {
+async function readInput(filename: string) {
   const rl = getRlInterface(filename);
   const grid = [];
   const instructions = [];
@@ -51,7 +60,7 @@ async function readInput(filename) {
   return { instructions, grid, scaledGrid };
 }
 
-function getScore(grid) {
+function getScore(grid: string[][]) {
   let score = 0;
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
@@ -63,7 +72,11 @@ function getScore(grid) {
   return score;
 }
 
-function getTrainLength(grid, originalPosition, changeVector) {
+function getTrainLength(
+  grid: string[][],
+  originalPosition: Position,
+  changeVector: Vector
+) {
   const nextPosition = {
     i: originalPosition.i + changeVector.i,
     j: originalPosition.j + changeVector.j,
@@ -88,7 +101,7 @@ function getTrainLength(grid, originalPosition, changeVector) {
   return trainLength;
 }
 
-function getChangeVector(direction) {
+function getChangeVector(direction: string): Vector {
   switch (direction) {
     case "^":
       return { i: -1, j: 0 };
@@ -98,10 +111,12 @@ function getChangeVector(direction) {
       return { i: 0, j: -1 };
     case ">":
       return { i: 0, j: 1 };
+    default:
+      throw new Error(`Invalid direction: ${direction}`);
   }
 }
 
-function getStartingPosition(grid) {
+function getStartingPosition(grid: string[][]): Position {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
       if (grid[i][j] === "@") {
@@ -109,9 +124,10 @@ function getStartingPosition(grid) {
       }
     }
   }
+  throw new Error("Starting position not found in the grid.");
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const { scaledGrid, instructions } = await readInput(filename);
@@ -139,7 +155,7 @@ async function solvePartTwo(filename) {
   return getScore(scaledGrid);
 }
 
-function scaleUpWarehouse(grid) {
+function scaleUpWarehouse(grid: string[][]) {
   const scaledUpGrid = [];
   for (let i = 0; i < grid.length; i++) {
     let newRow = [];
@@ -151,7 +167,7 @@ function scaleUpWarehouse(grid) {
   return scaledUpGrid;
 }
 
-function getScaledUpSymbol(symbol) {
+function getScaledUpSymbol(symbol: string) {
   switch (symbol) {
     case "#":
       return ["#", "#"];
@@ -161,15 +177,21 @@ function getScaledUpSymbol(symbol) {
       return [".", "."];
     case "@":
       return ["@", "."];
+    default:
+      throw new Error(`Invalid symbol: ${symbol}`);
   }
 }
 
-function getAdvancedTrain(grid, originalPosition, changeVector) {
+function getAdvancedTrain(
+  grid: string[][],
+  originalPosition: Position,
+  changeVector: Vector
+) {
   const queue = [originalPosition];
   const visited = new Set();
-  const stack = [];
+  const stack: Position[] = [];
   while (queue.length > 0) {
-    const position = queue.shift();
+    const position = queue.shift()!;
     if (visited.has(position)) {
       continue;
     }
@@ -195,7 +217,7 @@ function getAdvancedTrain(grid, originalPosition, changeVector) {
   return stack;
 }
 
-function getSiblingPosition(grid, position) {
+function getSiblingPosition(grid: string[][], position: Position) {
   const symbol = grid[position.i][position.j];
   if (symbol === "[") {
     return { i: position.i, j: position.j + 1 };

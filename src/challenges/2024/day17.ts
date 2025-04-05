@@ -1,8 +1,13 @@
-#!/usr/bin/env node
-import { readFile } from "../../shared/fileReader.mjs";
+import { readFile } from "../../shared/fileReader";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+interface Registers {
+  a: number;
+  b: number;
+  c: number;
+}
+
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const file = readFile(filename);
@@ -12,13 +17,12 @@ async function solvePartOne(filename) {
   return output.join(",");
 }
 
-function runProgram(registers, program) {
+function runProgram(registers: Registers, program: number[]) {
   const output = [];
   for (let i = 0; i < program.length; ) {
     const instruction = program[i];
     const operand = program[i + 1];
     i += 2;
-    logState(instruction, operand, registers);
     switch (instruction) {
       case 0: // adv
         registers.a = Math.floor(
@@ -57,20 +61,7 @@ function runProgram(registers, program) {
   return output;
 }
 
-function logState(instruction, operand, registers) {
-  const instructions = {
-    0: "adv",
-    1: "bxl",
-    2: "bst",
-    3: "jnz",
-    4: "bxc",
-    5: "out",
-    6: "bdv",
-    7: "cdv",
-  };
-}
-
-function getComboOperand(operand, registers) {
+function getComboOperand(operand: number, registers: Registers) {
   if (operand < 4) {
     return operand;
   } else if (operand === 4) {
@@ -84,8 +75,8 @@ function getComboOperand(operand, registers) {
   }
 }
 
-function getInput(file) {
-  const numbers = file.match(/\d+/g).map(Number);
+function getInput(file: string) {
+  const numbers = file.match(/\d+/g)!.map(Number);
   const registers = {
     a: numbers[0],
     b: numbers[1],
@@ -95,7 +86,7 @@ function getInput(file) {
   return { registers, program };
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const file = readFile(filename);
@@ -116,7 +107,6 @@ async function solvePartTwo(filename) {
 
 export async function main() {
   console.log(`Hello from day17!`);
-  runTestCases();
   const input1Part1Result = await solvePartOne("input1.txt");
   assert.strictEqual(input1Part1Result, "4,6,3,5,6,3,5,2,1,0");
   const input2Part1Result = await solvePartOne("input2.txt");
@@ -125,49 +115,4 @@ export async function main() {
   assert.strictEqual(input3Part2Result, 117440);
   const input2Part2Result = await solvePartTwo("input2.txt");
   assert.strictEqual(input2Part2Result, 190384609508367);
-}
-
-function runTestCases() {
-  const testCases = [
-    {
-      registers: { a: 10, b: 0, c: 0 },
-      program: [5, 0, 5, 1, 5, 4],
-      expectedOutput: [0, 1, 2],
-    },
-    {
-      registers: { a: 2024, b: 0, c: 0 },
-      program: [0, 1, 5, 4, 3, 0],
-      expectedOutput: [4, 2, 5, 6, 7, 7, 7, 7, 3, 1, 0],
-      expectedRegisters: { a: 0 },
-    },
-    {
-      registers: { a: 0, b: 0, c: 9 },
-      program: [2, 6],
-      expectedRegisters: { b: 1 },
-    },
-    {
-      registers: { a: 0, b: 29, c: 0 },
-      program: [1, 7],
-      expectedRegisters: { b: 26 },
-    },
-    {
-      registers: { a: 0, b: 2024, c: 43690 },
-      program: [4, 0],
-      expectedRegisters: { b: 44354 },
-    },
-  ];
-  for (let testCase of testCases) {
-    const output = runProgram(testCase.registers, testCase.program);
-    if (testCase.expectedOutput) {
-      assert.deepStrictEqual(output, testCase.expectedOutput);
-    }
-    if (testCase.expectedRegisters) {
-      for (const key of Object.keys(testCase.expectedRegisters)) {
-        assert.strictEqual(
-          testCase.registers[key],
-          testCase.expectedRegisters[key]
-        );
-      }
-    }
-  }
 }

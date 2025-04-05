@@ -1,11 +1,11 @@
-import { readFile } from "../../shared/fileReader.mjs";
+import { readFile } from "../../shared/fileReader";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const file = readFile(filename);
-  const numbers = file.match(/\d+/g).map(Number);
+  const numbers = file.match(/\d+/g)!.map(Number);
   let score = 0;
   for (let i = 0; i < numbers.length; i += 6) {
     let [a, b] = solveCramerRule(
@@ -29,11 +29,11 @@ async function solvePartOne(filename) {
   return score;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const file = readFile(filename);
-  const numbers = file.match(/\d+/g).map(Number);
+  const numbers = file.match(/\d+/g)!.map(Number);
   let score = 0;
   const conversionFactor = 10000000000000;
   for (let i = 0; i < numbers.length; i += 6) {
@@ -58,7 +58,14 @@ async function solvePartTwo(filename) {
   return score;
 }
 
-function solveCramerRule(a1, b1, c1, a2, b2, c2) {
+function solveCramerRule(
+  a1: number,
+  b1: number,
+  c1: number,
+  a2: number,
+  b2: number,
+  c2: number
+) {
   const determinant = a1 * b2 - a2 * b1;
   const determinantX = c1 * b2 - c2 * b1;
   const determinantY = a1 * c2 - a2 * c1;

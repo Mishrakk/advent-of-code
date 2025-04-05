@@ -1,22 +1,18 @@
-#!/usr/bin/env node
-import { readFile } from "../../shared/fileReader.mjs";
+import { readFile } from "../../shared/fileReader";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const input = readFile(filename);
-  //console.log("Input:", input);
   const blocks = getBlockRepresentation(input);
-  //console.log("Block representation:", blocks.join(""));
   const compactedBlocks = compactBlocks(blocks);
-  //console.log("Compacted blocks:", compactedBlocks.join(""));
   const checksum = getChecksum(compactedBlocks);
   return checksum;
 }
 
-function getBlockRepresentation(input) {
-  let blockRepresentation = [];
+function getBlockRepresentation(input: string) {
+  let blockRepresentation: string[] = [];
   let id = 0;
   for (let i = 0; i < input.length; i++) {
     const character = i % 2 === 0 ? String(id++) : ".";
@@ -26,7 +22,7 @@ function getBlockRepresentation(input) {
   return blockRepresentation;
 }
 
-function compactBlocks(blocks) {
+function compactBlocks(blocks: string[]) {
   let compactedBlocks = [...blocks];
   let currentEndBlockIndex = blocks.length - 1;
   for (let i = 0; i < compactedBlocks.length; i++) {
@@ -45,17 +41,17 @@ function compactBlocks(blocks) {
   return compactedBlocks;
 }
 
-function getChecksum(block) {
+function getChecksum(block: string[]) {
   let sum = 0;
   for (let i = 0; i < block.length; i++) {
     if (block[i] !== ".") {
-      sum += block[i] * i;
+      sum += Number(block[i]) * i;
     }
   }
   return sum;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const input = readFile(filename);
@@ -65,7 +61,7 @@ async function solvePartTwo(filename) {
   return checksum;
 }
 
-function compactBlocksByWholeFiles(blocks) {
+function compactBlocksByWholeFiles(blocks: string[]) {
   let compactedBlocks = [...blocks];
   for (let i = compactedBlocks.length - 1; i > 0; i--) {
     if (compactedBlocks[i] === ".") {

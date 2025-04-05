@@ -1,8 +1,7 @@
-#!/usr/bin/env node
-import { getRlInterface } from "../../shared/fileReader.mjs";
+import { getRlInterface } from "../../shared/fileReader";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const rl = getRlInterface(filename);
@@ -16,32 +15,32 @@ async function solvePartOne(filename) {
   return score;
 }
 
-function getNextSecretNumber(number) {
+function getNextSecretNumber(number: number) {
   const step1 = ((number ^ (number * 64)) >>> 0) % 16777216;
   const step2 = ((step1 ^ Math.floor(step1 / 32)) >>> 0) % 16777216;
   const secret = ((step2 ^ (step2 * 2048)) >>> 0) % 16777216;
   return secret;
 }
 
-function get2000thSecretNumber(number) {
+function get2000thSecretNumber(number: number) {
   const digits = [number % 10];
   for (let i = 0; i < 2000; i++) {
     number = getNextSecretNumber(number);
     digits.push(number % 10);
   }
-  return [number, digits];
+  return [number, ...digits];
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const rl = getRlInterface(filename);
-  const totalSequences = {};
+  const totalSequences: { [key: string]: number } = {};
 
   for await (const line of rl) {
     const number = parseInt(line, 10);
-    const [, digits] = get2000thSecretNumber(number);
-    const sequences = {};
+    const [, ...digits] = get2000thSecretNumber(number);
+    const sequences: { [key: string]: number } = {};
     const diffs = [
       Infinity,
       digits[1] - digits[0],

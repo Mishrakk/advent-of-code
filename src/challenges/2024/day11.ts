@@ -1,11 +1,10 @@
-#!/usr/bin/env node
-import { readFile } from "../../shared/fileReader.mjs";
+import { readFile } from "../../shared/fileReader";
 import assert from "assert";
 
-const stoneCountCache = {};
-const stoneBlinkCache = {};
+const stoneCountCache: { [key: string]: number } = {};
+const stoneBlinkCache: { [key: number]: number[] } = {};
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const file = readFile(filename);
@@ -16,7 +15,7 @@ async function solvePartOne(filename) {
     .reduce((acc, val) => acc + val, 0);
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const file = readFile(filename);
@@ -26,7 +25,7 @@ async function solvePartTwo(filename) {
     .reduce((acc, val) => acc + val, 0);
 }
 
-function blinkStone(stone) {
+function blinkStone(stone: number) {
   if (stoneBlinkCache[stone]) {
     return stoneBlinkCache[stone];
   }
@@ -45,7 +44,7 @@ function blinkStone(stone) {
   return result;
 }
 
-function getStoneCount(stone, blinks) {
+function getStoneCount(stone: number, blinks: number): number {
   const stoneBlinkedResult = blinkStone(stone);
   if (blinks === 1) {
     return stoneBlinkedResult.length;

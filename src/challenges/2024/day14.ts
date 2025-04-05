@@ -1,16 +1,27 @@
-#!/usr/bin/env node
-import { getRlInterface } from "../../shared/fileReader.mjs";
-import { printGrid } from "../../shared/grid.mjs";
+import { getRlInterface } from "../../shared/fileReader";
+import { printGrid } from "../../shared/grid";
 import assert from "assert";
 
-async function solvePartOne(filename, limits) {
+interface Robot {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+}
+
+interface Limits {
+  x: number;
+  y: number;
+}
+
+async function solvePartOne(filename: string, limits: Limits) {
   console.log("Solving part one of file:", filename);
 
   const rl = getRlInterface(filename);
   const quadrants = [0, 0, 0, 0];
 
   for await (const line of rl) {
-    const numbers = line.match(/-?\d+/g).map(Number);
+    const numbers = line.match(/-?\d+/g)!.map(Number);
     const robot = {
       x: numbers[0],
       y: numbers[1],
@@ -26,7 +37,7 @@ async function solvePartOne(filename, limits) {
   return quadrants[0] * quadrants[1] * quadrants[2] * quadrants[3];
 }
 
-function getQuadrant(robot, limits) {
+function getQuadrant(robot: Robot, limits: Limits) {
   const halfX = Math.floor(limits.x / 2);
   const halfY = Math.floor(limits.y / 2);
   if (robot.x == halfX || robot.y === halfY) {
@@ -42,20 +53,20 @@ function getQuadrant(robot, limits) {
   }
 }
 
-function moveNTimes(robot, limits, times) {
+function moveNTimes(robot: Robot, limits: Limits, times: number) {
   robot.x = (robot.x + times * (robot.vx + limits.x)) % limits.x;
   robot.y = (robot.y + times * (robot.vy + limits.y)) % limits.y;
   return robot;
 }
 
-async function solvePartTwo(filename, limits) {
+async function solvePartTwo(filename: string, limits: Limits) {
   console.log("Solving part two of file:", filename);
 
   const rl = getRlInterface(filename);
   const robots = [];
 
   for await (const line of rl) {
-    const numbers = line.match(/-?\d+/g).map(Number);
+    const numbers = line.match(/-?\d+/g)!.map(Number);
     const robot = {
       x: numbers[0],
       y: numbers[1],
@@ -74,7 +85,7 @@ async function solvePartTwo(filename, limits) {
   }
 }
 
-function getGrid(robots, limits) {
+function getGrid(robots: Robot[], limits: Limits) {
   const grid = Array.from({ length: limits.y }, () =>
     Array.from({ length: limits.x }, () => ".")
   );
@@ -84,7 +95,7 @@ function getGrid(robots, limits) {
   return grid;
 }
 
-function isEasterEgg(robots, limits) {
+function isEasterEgg(robots: Robot[], limits: Limits) {
   const grid = getGrid(robots, limits);
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {

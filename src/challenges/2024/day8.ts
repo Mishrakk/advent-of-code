@@ -1,8 +1,13 @@
-#!/usr/bin/env node
-import { getRlInterface } from "../../shared/fileReader.mjs";
+import { getRlInterface } from "../../shared/fileReader";
+import readline from "readline";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+interface Position {
+  x: number;
+  y: number;
+}
+
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const rl = getRlInterface(filename);
@@ -33,8 +38,8 @@ async function solvePartOne(filename) {
   return antinodes.size;
 }
 
-async function getAntennas(rl) {
-  let antennas = {};
+async function getAntennas(rl: readline.Interface) {
+  let antennas: { [key: string]: Array<Position> } = {};
   let lineIndex = 0;
   for await (const line of rl) {
     for (let i = 0; i < line.length; i++) {
@@ -50,7 +55,7 @@ async function getAntennas(rl) {
   return { antennas, lineIndex };
 }
 
-function isInbounds(position, limit) {
+function isInbounds(position: Position, limit: number) {
   return (
     position.x >= 0 &&
     position.x < limit &&
@@ -59,7 +64,7 @@ function isInbounds(position, limit) {
   );
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const rl = getRlInterface(filename);

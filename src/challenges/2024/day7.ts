@@ -1,8 +1,7 @@
-#!/usr/bin/env node
-import { getRlInterface } from "../../shared/fileReader.mjs";
+import { getRlInterface } from "../../shared/fileReader";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const rl = getRlInterface(filename);
@@ -10,7 +9,7 @@ async function solvePartOne(filename) {
 
   const pattern = /(\d+)/g;
   for await (const line of rl) {
-    const numbers = line.match(pattern).map(Number);
+    const numbers = line.match(pattern)!.map(Number);
     if (canBeSolved(numbers)) {
       score += numbers[0];
     }
@@ -18,7 +17,7 @@ async function solvePartOne(filename) {
   return score;
 }
 
-function canBeSolved(numbers, numberOfPossibleOperators = 2) {
+function canBeSolved(numbers: number[], numberOfPossibleOperators = 2) {
   const expectedResult = numbers[0];
   const equationNumbers = numbers.slice(1);
   const limit = Math.pow(numberOfPossibleOperators, equationNumbers.length - 1);
@@ -34,7 +33,7 @@ function canBeSolved(numbers, numberOfPossibleOperators = 2) {
   return false;
 }
 
-function getResult(numbers, operators) {
+function getResult(numbers: number[], operators: string) {
   let result = numbers[0];
   for (let i = 0; i < operators.length; i++) {
     switch (operators[i]) {
@@ -49,30 +48,10 @@ function getResult(numbers, operators) {
         break;
     }
   }
-  //visualize(numbers, operators, result);
   return result;
 }
 
-function visualize(numbers, operators, result) {
-  let resultString = numbers[0].toString();
-  for (let i = 0; i < operators.length; i++) {
-    switch (operators[i]) {
-      case "0":
-        resultString += ` + ${numbers[i + 1]}`;
-        break;
-      case "1":
-        resultString += ` * ${numbers[i + 1]}`;
-        break;
-      case "2":
-        resultString += ` || ${numbers[i + 1]}`;
-        break;
-    }
-  }
-  resultString += ` = ${result}`;
-  console.log(resultString);
-}
-
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const rl = getRlInterface(filename);
@@ -80,7 +59,7 @@ async function solvePartTwo(filename) {
 
   const pattern = /(\d+)/g;
   for await (const line of rl) {
-    const numbers = line.match(pattern).map(Number);
+    const numbers = line.match(pattern)!.map(Number);
     if (canBeSolved(numbers, 3)) {
       score += numbers[0];
     }

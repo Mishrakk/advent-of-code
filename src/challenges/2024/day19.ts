@@ -1,10 +1,9 @@
-#!/usr/bin/env node
-import { getRlInterface } from "../../shared/fileReader.mjs";
+import { getRlInterface } from "../../shared/fileReader";
 import assert from "assert";
 
 const cache = new Map();
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const rl = getRlInterface(filename);
@@ -27,7 +26,10 @@ async function solvePartOne(filename) {
   return score;
 }
 
-function getNumberOfWaysPatternCanBeConstructed(pattern, towels) {
+function getNumberOfWaysPatternCanBeConstructed(
+  pattern: string,
+  towels: string[]
+) {
   if (cache.has(pattern)) {
     return cache.get(pattern);
   }
@@ -44,7 +46,7 @@ function getNumberOfWaysPatternCanBeConstructed(pattern, towels) {
   return numberOfWays;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const rl = getRlInterface(filename);

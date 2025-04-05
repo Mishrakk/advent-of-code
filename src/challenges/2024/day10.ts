@@ -1,8 +1,13 @@
-#!/usr/bin/env node
-import { readFileTo2DArray } from "../../shared/fileReader.mjs";
+import { readFileTo2DArray } from "../../shared/fileReader";
 import assert from "assert";
 
-async function solvePartOne(filename) {
+interface Position {
+  i: number;
+  j: number;
+  height: number;
+}
+
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const map = readFileTo2DArray(filename);
@@ -19,11 +24,11 @@ async function solvePartOne(filename) {
   return score;
 }
 
-function countFullTrails(map, startingPosition) {
+function countFullTrails(map: string[][], startingPosition: Position) {
   let fullTrails = 0;
   const queue = [startingPosition];
   while (queue.length > 0) {
-    const position = queue.shift();
+    const position = queue.shift()!;
     if (position.height === 9) {
       fullTrails++;
       continue;
@@ -36,11 +41,11 @@ function countFullTrails(map, startingPosition) {
   return fullTrails;
 }
 
-function findFullTrails(map, startingPosition) {
+function findFullTrails(map: string[][], startingPosition: Position) {
   const fullTrails = new Set();
   const queue = [startingPosition];
   while (queue.length > 0) {
-    const position = queue.shift();
+    const position = queue.shift()!;
     if (position.height === 9) {
       fullTrails.add(JSON.stringify(position));
       continue;
@@ -53,7 +58,7 @@ function findFullTrails(map, startingPosition) {
   return fullTrails;
 }
 
-function findTrailsUp(map, position) {
+function findTrailsUp(map: string[][], position: Position) {
   const trails = [];
   const directions = [
     [0, 1],
@@ -75,7 +80,7 @@ function findTrailsUp(map, position) {
   return trails;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const map = readFileTo2DArray(filename);

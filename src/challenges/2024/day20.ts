@@ -1,6 +1,5 @@
-#!/usr/bin/env node
-import { readFileTo2DArray } from "../../shared/fileReader.mjs";
-import { getPosition } from "../../shared/grid.mjs";
+import { readFileTo2DArray } from "../../shared/fileReader";
+import { getPosition } from "../../shared/grid";
 import assert from "assert";
 
 const NEIGHBORS_VECTORS = [
@@ -10,12 +9,17 @@ const NEIGHBORS_VECTORS = [
   { i: 0, j: 1 }, // right
 ];
 
-async function solvePartOne(filename, minSave) {
+interface Position {
+  i: number;
+  j: number;
+  cost: number;
+}
+
+async function solvePartOne(filename: string, minSave: number) {
   console.log("Solving part one of file:", filename);
 
   const grid = readFileTo2DArray(filename);
-  const startingPosition = getPosition(grid, "S");
-  const endingPosition = getPosition(grid, "E");
+  const startingPosition = getPosition(grid, "S")! as Position;
   const distances = findDistances(grid, startingPosition);
   let score = 0;
   for (let i = 1; i < grid.length - 1; i++) {
@@ -46,17 +50,17 @@ async function solvePartOne(filename, minSave) {
   return score;
 }
 
-function isPath(symbol) {
+function isPath(symbol: string) {
   return symbol === "." || symbol === "S" || symbol === "E";
 }
 
-function findDistances(grid, startingPosition) {
+function findDistances(grid: string[][], startingPosition: Position) {
   const visited = new Set();
-  const distances = {};
+  const distances: { [key: string]: number } = {};
   const queue = [{ ...startingPosition, cost: 0 }];
   while (queue.length > 0) {
     queue.sort((a, b) => a.cost - b.cost);
-    const position = queue.shift();
+    const position = queue.shift()!;
     const positionKey = `${position.i},${position.j}`;
     if (visited.has(positionKey)) {
       continue;
@@ -88,11 +92,10 @@ function findDistances(grid, startingPosition) {
   return distances;
 }
 
-async function solvePartTwo(filename, minSave) {
+async function solvePartTwo(filename: string, minSave: number) {
   console.log("Solving part two of file:", filename);
   const grid = readFileTo2DArray(filename);
-  const startingPosition = getPosition(grid, "S");
-  const endingPosition = getPosition(grid, "E");
+  const startingPosition = getPosition(grid, "S")! as Position;
   const distances = findDistances(grid, startingPosition);
   let score = 0;
   const seenCheats = new Set();
@@ -128,7 +131,12 @@ async function solvePartTwo(filename, minSave) {
   return score;
 }
 
-function getManhattanDistance(p1i, p1j, p2i, p2j) {
+function getManhattanDistance(
+  p1i: number,
+  p1j: number,
+  p2i: number,
+  p2j: number
+) {
   return Math.abs(p1i - p2i) + Math.abs(p1j - p2j);
 }
 

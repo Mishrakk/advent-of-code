@@ -1,10 +1,15 @@
-#!/usr/bin/env node
-import { readFileTo2DArray } from "../../shared/fileReader.mjs";
+import { readFileTo2DArray } from "../../shared/fileReader";
 import assert from "assert";
 
 const DIRECTIONS = ["^", ">", "v", "<"];
 
-async function solvePartOne(filename) {
+interface Position {
+  x: number;
+  y: number;
+  direction: string;
+}
+
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const map = readFileTo2DArray(filename);
@@ -20,7 +25,7 @@ async function solvePartOne(filename) {
   return calculateScore(map);
 }
 
-function findGuardPosition(map) {
+function findGuardPosition(map: string[][]): Position {
   for (let i = 0; i < map.length; i++) {
     for (let j = 0; j < map[i].length; j++) {
       if (map[i][j] === "^") {
@@ -32,9 +37,10 @@ function findGuardPosition(map) {
       }
     }
   }
+  throw new Error("Guard not found");
 }
 
-function calculateScore(map) {
+function calculateScore(map: string[][]) {
   let score = 0;
   for (let i = 0; i < map.length; i++) {
     for (let j = 0; j < map[i].length; j++) {
@@ -46,7 +52,7 @@ function calculateScore(map) {
   return score;
 }
 
-function getForwardPosition(position) {
+function getForwardPosition(position: Position) {
   const newPosition = { ...position };
   switch (newPosition.direction) {
     case "^":
@@ -65,7 +71,7 @@ function getForwardPosition(position) {
   return newPosition;
 }
 
-function getNextPosition(map, position) {
+function getNextPosition(map: string[][], position: Position) {
   const positionCopy = { ...position };
   let newPosition = getForwardPosition(positionCopy);
   while (
@@ -78,13 +84,13 @@ function getNextPosition(map, position) {
   return newPosition;
 }
 
-function getNextDirection(guardDirection) {
+function getNextDirection(guardDirection: string) {
   return DIRECTIONS[
     (DIRECTIONS.indexOf(guardDirection) + 1) % DIRECTIONS.length
   ];
 }
 
-function isPositionInbounds(map, position) {
+function isPositionInbounds(map: string[][], position: Position) {
   return (
     position.x >= 0 &&
     position.x < map.length &&
@@ -93,7 +99,7 @@ function isPositionInbounds(map, position) {
   );
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const map = readFileTo2DArray(filename);
@@ -120,7 +126,7 @@ async function solvePartTwo(filename) {
   return obstaclePositions.size;
 }
 
-function hasLoop(map, startingPosition) {
+function hasLoop(map: string[][], startingPosition: Position) {
   const visited = new Set();
   let position = { ...startingPosition };
   const mapCopy = map.map((row) => [...row]);
@@ -136,7 +142,7 @@ function hasLoop(map, startingPosition) {
   return false;
 }
 
-function positionToString(position) {
+function positionToString(position: Position) {
   return `${position.x},${position.y},${position.direction}`;
 }
 

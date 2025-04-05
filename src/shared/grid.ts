@@ -13,4 +13,5 @@ export function getPosition(grid: string[][], symbol: string) {
       }
     }
   }
+  return null;
 }
