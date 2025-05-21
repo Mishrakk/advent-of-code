@@ -1,5 +1,5 @@
-import { readFileTo2DArray } from "../../shared/fileReader";
-import { getPosition } from "../../shared/grid";
+import { readFileTo2DArray } from "@shared/fileReader";
+import { getPosition } from "@shared/grid";
 import assert from "assert";
 
 const NEIGHBORS_VECTORS = [

@@ -1,4 +1,4 @@
-import { getRlInterface } from "../../shared/fileReader";
+import { getRlInterface } from "@shared/fileReader";
 import assert from "assert";
 import readline from "readline";
 

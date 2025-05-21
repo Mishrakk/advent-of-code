@@ -1,14 +1,20 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
+    "paths": {
+      "@shared/fileReader": ["src/shared/fileReader"]
+    }
   },
+
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

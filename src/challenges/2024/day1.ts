@@ -1,5 +1,5 @@
 import assert from "assert";
-import { getRlInterface } from "../../shared/fileReader";
+import { getRlInterface } from "@shared/fileReader";
 
 async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);

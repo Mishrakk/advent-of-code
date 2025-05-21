@@ -1,5 +1,5 @@
-import { readFileTo2DArray } from "../../shared/fileReader";
-import { getPosition, printGrid } from "../../shared/grid";
+import { readFileTo2DArray } from "@shared/fileReader";
+import { getPosition, printGrid } from "@shared/grid";
 import assert from "assert";
 
 interface Position {

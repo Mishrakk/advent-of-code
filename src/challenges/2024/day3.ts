@@ -1,4 +1,4 @@
-import { getRlInterface, readFile } from "../../shared/fileReader";
+import { getRlInterface, readFile } from "@shared/fileReader";
 import assert from "assert";
 
 async function solvePartOne(filename: string) {

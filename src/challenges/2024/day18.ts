@@ -1,4 +1,4 @@
-import { readFile } from "../../shared/fileReader";
+import { readFile } from "@shared/fileReader";
 import assert from "assert";
 
 const NEIGHBORS_VECTORS = [

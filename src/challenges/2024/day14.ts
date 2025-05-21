@@ -1,5 +1,5 @@
-import { getRlInterface } from "../../shared/fileReader";
-import { printGrid } from "../../shared/grid";
+import { getRlInterface } from "@shared/fileReader";
+import { printGrid } from "@shared/grid";
 import assert from "assert";
 
 interface Robot {

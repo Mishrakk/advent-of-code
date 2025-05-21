@@ -1,4 +1,4 @@
-import { readFileTo2DArray } from "../../shared/fileReader";
+import { readFileTo2DArray } from "@shared/fileReader";
 import assert from "assert";
 
 interface Position {

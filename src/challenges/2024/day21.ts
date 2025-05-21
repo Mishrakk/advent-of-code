@@ -1,4 +1,4 @@
-import { getRlInterface } from "../../shared/fileReader";
+import { getRlInterface } from "@shared/fileReader";
 import assert from "assert";
 
 const cache = new Map();
