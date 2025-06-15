@@ -1,17 +1,27 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
+    /* Base Options: */
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "es2022",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+
+    /* Strictness */
+    "strict": true,
+    "noImplicitOverride": true,
+
+    "module": "preserve",
+    "noEmit": true,
+    /* If your code doesn't run in the DOM: */
+    "lib": ["es2022"],
+
     "baseUrl": "./",
     "paths": {
-      "@shared/fileReader": ["src/shared/fileReader"]
+      "@shared/fileReader": ["./src/shared/fileReader"]
     }
   },
 

@@ -1,5 +1,11 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const basePath = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  ".."
+);
 
 const challenge = process.argv[2];
 if (!challenge) {
@@ -12,18 +18,21 @@ if (!day) {
   process.exit(1);
 }
 
-const dayTemplatePath = path.resolve(__dirname, "day_template.mjs");
+const dayTemplatePath = path.resolve(
+  basePath,
+  `challenges/${challenge}/day_template.ts`
+);
 const newDayFilePath = path.resolve(
-  __dirname,
-  `../challenges/${challenge}/day${day}.mjs`
+  basePath,
+  `challenges/${challenge}/day${day}.ts`
 );
 const inputTemplatePath = path.resolve(
-  __dirname,
-  `../../inputs/${challenge}/day_template`
+  basePath,
+  `../inputs/${challenge}/day_template`
 );
 const newInputFolderPath = path.resolve(
-  __dirname,
-  `../../inputs/${challenge}/day${day}`
+  basePath,
+  `../inputs/${challenge}/day${day}`
 );
 
 // Copy day_template.mjs to ../days/day${input}.mjs

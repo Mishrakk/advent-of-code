@@ -1,8 +1,7 @@
-#!/usr/bin/env node
-import { getRlInterface } from "../../shared/fileReader.mjs";
 import assert from "assert";
+import { getRlInterface } from "@shared/fileReader";
 
-async function solvePartOne(filename) {
+async function solvePartOne(filename: string) {
   console.log("Solving part one of file:", filename);
 
   const rl = getRlInterface(filename);
@@ -13,7 +12,7 @@ async function solvePartOne(filename) {
   return score;
 }
 
-async function solvePartTwo(filename) {
+async function solvePartTwo(filename: string) {
   console.log("Solving part two of file:", filename);
 
   const rl = getRlInterface(filename);
