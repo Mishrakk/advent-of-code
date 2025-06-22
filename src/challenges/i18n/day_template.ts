@@ -2,7 +2,7 @@ import assert from "assert";
 import { getRlInterface } from "@shared/fileReader";
 
 async function solve(filename: string) {
-  console.log("Solving part one of file:", filename);
+  console.log("Solving file:", filename);
 
   const rl = getRlInterface(filename);
   let score = 0;

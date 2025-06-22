@@ -3,7 +3,7 @@ import { getRlInterface } from "@shared/fileReader";
 import { Temporal } from "@js-temporal/polyfill";
 
 async function solve(filename: string) {
-  console.log("Solving part one of file:", filename);
+  console.log("Solving file:", filename);
 
   const rl = getRlInterface(filename);
   const events = new Map<number, number>();
