@@ -7,8 +7,7 @@
     "start": "tsx src/bin/day.ts",
     "generate": "tsx src/bin/generate_day.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "update-submodule": "git submodule update --remote --rebase",
-    "push-submodule": "git push --recurse-submodules=check"
+    "handle-submodule": "bash submodule.sh"
   },
   "keywords": [],
   "author": "",
