@@ -15,7 +15,7 @@ export function readFileTo2DArray(filename: string) {
   const path = getFullPath(errorStack, filename);
   const fileContent = fs.readFileSync(path, "utf-8").replace(/\r\n/g, "\n");
   const lines = fileContent.split("\n");
-  return lines.map((line) => line.split(""));
+  return lines.map((line) => Array.from(line));
 }
 
 export function readFile(filename: string) {
