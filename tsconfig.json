@@ -21,7 +21,8 @@
 
     "baseUrl": "./",
     "paths": {
-      "@shared/fileReader": ["./src/shared/fileReader"]
+      "@shared/fileReader": ["./src/shared/fileReader"],
+      "@shared/grid": ["./src/shared/grid"]
     }
   },
 

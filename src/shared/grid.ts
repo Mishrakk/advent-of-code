@@ -15,3 +15,7 @@ export function getPosition(grid: string[][], symbol: string) {
   }
   return null;
 }
+
+export function deepCopyGrid(grid: string[][]): string[][] {
+  return grid.map((row) => [...row]);
+}
