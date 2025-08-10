@@ -2,22 +2,6 @@ import assert from "assert";
 import { readFileTo2DArray } from "@shared/fileReader";
 import { deepCopyGrid } from "@shared/grid";
 
-/*
-The way we will do it will be as follows:
-1. We will read the input as 2d array of chars
-2. We will construct a map of possible pipes:
-  - keys would be symbols like '╞'
-  - every entry will have:
-  - number of possible rotations (4 in this example)
-  - next symbol for clockwise rotation ('╥')
-  - requirements (single up, single down, double right)
-3. There will be function solve(grid, currentPosition, rotationsSoFar)
-4. In that function, we will go left to right, top to bottom
-5. For every cell in the above, we will iterate over possible rotations
-6. If a rotation is valid, we will spawn another solve function
-7. To check if a rotation is valid, we will check only top and left neighbors, with special case for last column and last row
-*/
-
 interface Pipe {
   rotations: number;
   nextSymbol: string;
