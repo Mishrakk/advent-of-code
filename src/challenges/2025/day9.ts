@@ -81,8 +81,8 @@ function isRectangleContainedInPolygon(rectangle: {tileA: Tile, tileB: Tile, are
     const edgeMinJ = Math.min(edge.p1.j, edge.p2.j);
     const edgeMaxJ = Math.max(edge.p1.j, edge.p2.j);
 
-    if (minI < edgeMaxI && maxI > edgeMinI && minJ < edgeMaxJ && maxJ > edgeMinJ) {
-      // there is an intersection
+    if (minI < edgeMaxI && edgeMinI < maxI && minJ < edgeMaxJ && edgeMinJ < maxJ) {
+      // there is a polygon edge inside the rectangle, so the rectangle is not fully contained
       return false;
     }
   }
